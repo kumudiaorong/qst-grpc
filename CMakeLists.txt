@@ -5,8 +5,6 @@ project(qst-core LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(GRPC_LANGUAGE "cpp")
-
 set(qst_proto_path "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 file(GLOB_RECURSE qst_proto_files "${qst_proto_path}/*.proto")
@@ -15,8 +13,8 @@ file(GLOB_RECURSE qst_proto_files "${qst_proto_path}/*.proto")
 # foreach(_proto ${qst_proto})
 # message(STATUS "!!!${_proto}")
 # endforeach()
-set(_PROTOBUF_PROTOC protoc)
 
+find_program(_PROTOBUF_PROTOC protoc)
 find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
 
 set(qst_grpc_cpp_files)
@@ -56,10 +54,14 @@ add_custom_command(
 
 add_library(qst-grpc-cpp ${qst_grpc_cpp_files})
 
+find_package(Protobuf CONFIG REQUIRED)
+find_package(gRPC CONFIG REQUIRED)
+
 target_link_libraries(qst-grpc-cpp
-  ${_REFLECTION}
-  ${_GRPC_GRPCPP}
-  ${_PROTOBUF_LIBPROTOBUF})
+  gRPC::grpc++_reflection
+  grpc++
+  protobuf::libprotobuf
+)
 
 # set(_GRPC_GRPCPP grpc++)
 # set(_PROTOBUF_LIBPROTOBUF protobuf::libprotobuf)
