@@ -2,14 +2,14 @@ cmake_minimum_required(VERSION 3.14)
 
 project(qst-core LANGUAGES CXX)
 
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 set(GRPC_LANGUAGE "cpp")
 
 set(qst_proto_path "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
-file(GLOB_RECURSE QST_PROTO_FILES "${qst_proto_path}/*.proto")
+file(GLOB_RECURSE qst_proto_files "${qst_proto_path}/*.proto")
 
 # message(STATUS "!!!${qst_proto}")
 # foreach(_proto ${qst_proto})
@@ -19,18 +19,9 @@ set(_PROTOBUF_PROTOC protoc)
 
 find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
 
-# if(PROTOBUF_GENERATE_CPP_APPEND_PATH)
-# set(_prefix "")
-# else()
-# set(_prefix "${CMAKE_CURRENT_BINARY_DIR}/")
-# endif()
+set(qst_grpc_cpp_files)
 
-# if(DEFINED PROTOBUF_IMPORT_DIRS)
-# get_filename_component(ABS_IMPORT_DIRS "${PROTOBUF_IMPORT_DIRS}" ABSOLUTE)
-# endif()
-set(qst_cpp_grpc_files)
-
-foreach(_proto_abs_path ${QST_PROTO_FILES})
+foreach(_proto_abs_path ${qst_proto_files})
   # get_filename_component(ABS_FIL "${FIL}" ABSOLUTE)
   # get_filename_component(FIL_WE "${FIL}" NAME_WE)
 
@@ -38,34 +29,34 @@ foreach(_proto_abs_path ${QST_PROTO_FILES})
   # list(APPEND ${HDR_FILES} "${_prefix}${FIL_WE}.grpc.pb.h")
   get_filename_component(_proto_name "${_proto_abs_path}" NAME_WE)
 
-  set(qst_cpp_grpc_files
-    ${qst_cpp_grpc_files}
+  set(qst_grpc_cpp_files
+    ${qst_grpc_cpp_files}
     "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.pb.cc"
     "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.pb.h"
     "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.grpc.pb.cc"
     "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.grpc.pb.h")
 endforeach()
 
-message(STATUS "!!!${qst_cpp_grpc_files}")
+message(STATUS "!!!${qst_grpc_cpp_files}")
 
 set(qst_cpp_out_dir "${CMAKE_CURRENT_SOURCE_DIR}/cpp")
 
 message(STATUS "!!!${qst_cpp_out_dir}")
 
 add_custom_command(
-  OUTPUT ${qst_cpp_grpc_files}
+  OUTPUT ${qst_grpc_cpp_files}
   COMMAND ${CMAKE_COMMAND} -E make_directory "${qst_cpp_out_dir}"
   COMMAND ${_PROTOBUF_PROTOC}
   ARGS --grpc_out "${qst_cpp_out_dir}"
   --cpp_out "${qst_cpp_out_dir}"
   -I "${qst_proto_path}"
   --plugin=protoc-gen-grpc="${_GRPC_CPP_PLUGIN_EXECUTABLE}"
-  "${QST_PROTO_FILES}"
+  "${qst_proto_files}"
 )
 
-add_library(cpp ${qst_cpp_grpc_files})
+add_library(qst-grpc-cpp ${qst_grpc_cpp_files})
 
-target_link_libraries(cpp
+target_link_libraries(qst-grpc-cpp
   ${_REFLECTION}
   ${_GRPC_GRPCPP}
   ${_PROTOBUF_LIBPROTOBUF})
