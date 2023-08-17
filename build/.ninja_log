@@ -1,0 +1,8 @@
+# ninja log v5
+0	43	1692252555828595938	/home/kmdr/work/dev/pro/qst/qst-proto/cpp/qst.pb.cc	e84ade0f71d1aa04
+0	43	1692252555828595938	/home/kmdr/work/dev/pro/qst/qst-proto/cpp/qst.pb.h	e84ade0f71d1aa04
+0	43	1692252555828595938	/home/kmdr/work/dev/pro/qst/qst-proto/cpp/qst.grpc.pb.cc	e84ade0f71d1aa04
+0	43	1692252555828595938	/home/kmdr/work/dev/pro/qst/qst-proto/cpp/qst.grpc.pb.h	e84ade0f71d1aa04
+43	2066	1692252557848596034	CMakeFiles/cpp.dir/cpp/qst.pb.cc.o	5b3ac2adf8349afe
+43	3927	1692252559708596123	CMakeFiles/cpp.dir/cpp/qst.grpc.pb.cc.o	a41fdb9cefa9d391
+3927	3980	1692252559760596125	libcpp.a	87d9e59a56e713e3

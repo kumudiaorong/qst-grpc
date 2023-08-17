@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/kmdr/work/dev/pro/qst/qst-proto/build",
+  "command": "/usr/bin/g++ -g -std=gnu++20 -o CMakeFiles/cpp.dir/cpp/qst.pb.cc.o -c /home/kmdr/work/dev/pro/qst/qst-proto/cpp/qst.pb.cc",
+  "file": "/home/kmdr/work/dev/pro/qst/qst-proto/cpp/qst.pb.cc"
+},
+{
+  "directory": "/home/kmdr/work/dev/pro/qst/qst-proto/build",
+  "command": "/usr/bin/g++ -g -std=gnu++20 -o CMakeFiles/cpp.dir/cpp/qst.grpc.pb.cc.o -c /home/kmdr/work/dev/pro/qst/qst-proto/cpp/qst.grpc.pb.cc",
+  "file": "/home/kmdr/work/dev/pro/qst/qst-proto/cpp/qst.grpc.pb.cc"
+}
+]
