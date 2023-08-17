@@ -1,3 +1,0 @@
-/home/kmdr/work/dev/pro/qst/qst-proto/build/CMakeFiles/cpp.dir
-/home/kmdr/work/dev/pro/qst/qst-proto/build/CMakeFiles/edit_cache.dir
-/home/kmdr/work/dev/pro/qst/qst-proto/build/CMakeFiles/rebuild_cache.dir
