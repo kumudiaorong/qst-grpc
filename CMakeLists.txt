@@ -17,7 +17,6 @@ set(qst_grpc_cpp_hdrs "")
 
 foreach(_proto_abs_path ${qst_proto_files})
   get_filename_component(_proto_name "${_proto_abs_path}" NAME_WE)
-
   # set(qst_grpc_cpp_files
   # ${qst_grpc_cpp_files}
   # "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.pb.cc"
