@@ -41,11 +41,11 @@ add_custom_command(
   OUTPUT ${qst_grpc_cpp_srcs} ${qst_grpc_cpp_hdrs}
   COMMAND ${CMAKE_COMMAND} -E make_directory "${qst_cpp_out_dir}"
   COMMAND ${_PROTOBUF_PROTOC}
-  ARGS --grpc_out "${qst_cpp_out_dir}"
-  --cpp_out "${qst_cpp_out_dir}"
-  -I "${qst_proto_path}"
-  --plugin=protoc-gen-grpc="${_GRPC_CPP_PLUGIN_EXECUTABLE}"
-  "${qst_proto_files}"
+  ARGS --grpc_out ${qst_cpp_out_dir}
+  --cpp_out ${qst_cpp_out_dir}
+  -I ${qst_proto_path}
+  --plugin=protoc-gen-grpc=${_GRPC_CPP_PLUGIN_EXECUTABLE}
+  ${qst_proto_files}
   VERBATIM
 )
 
