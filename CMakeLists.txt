@@ -54,6 +54,7 @@ add_library(qst-grpc-cpp "")
 
 set_target_properties(qst-grpc-cpp PROPERTIES
   ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/cpp"
+  OUTPUT_NAME "qst-grpc"
 )
 target_sources(qst-grpc-cpp
   PRIVATE
