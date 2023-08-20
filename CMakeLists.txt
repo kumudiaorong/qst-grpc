@@ -50,11 +50,12 @@ add_custom_command(
   VERBATIM
 )
 
+add_custom_target(qst-grpc-cpp-gen ALL DEPENDS ${qst_grpc_cpp_srcs} ${qst_grpc_cpp_hdrs})
+
 add_library(qst-grpc-cpp "")
 
 set_target_properties(qst-grpc-cpp PROPERTIES
   ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/cpp"
-  OUTPUT_NAME "qst-grpc"
 )
 target_sources(qst-grpc-cpp
   PRIVATE
