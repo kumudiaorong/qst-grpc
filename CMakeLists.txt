@@ -46,6 +46,7 @@ add_custom_command(
   -I ${qst_proto_path}
   --plugin=protoc-gen-grpc=${_GRPC_CPP_PLUGIN_EXECUTABLE}
   ${qst_proto_files}
+  DEPENDS ${qst_proto_files}
   VERBATIM
 )
 
