@@ -9,7 +9,7 @@ message ExecHint {
   optional string file = 2;
   optional string url = 3;
 }
-message AppInfo {
+message Display {
   string name = 1;
   uint32 flag = 2;//arg with file
   optional string icon = 3;
@@ -18,8 +18,7 @@ message Empty {
 }
 service Interact {
   // sample rpc
-  rpc Query(Input) returns(AppInfo) {}
-  rpc ListApp(Input) returns(stream AppInfo) {}
+  rpc ListApp(Input) returns(stream Display) {}
   rpc RunApp(ExecHint) returns(Empty) {}
   // //server rpc
   // rpc streamData(StreamRequest) returns (stream StreamResponse){}
