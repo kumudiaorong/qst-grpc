@@ -5,6 +5,12 @@ project(qst-proto LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# if(NOT CMAKE_MODULE_PATH)
+#   set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+# else()
+#   list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+# endif()
+
 set(qst_proto_path "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 file(GLOB_RECURSE qst_proto_files "${qst_proto_path}/*.proto")
@@ -17,13 +23,6 @@ set(qst_grpc_cpp_hdrs "")
 
 foreach(_proto_abs_path ${qst_proto_files})
   get_filename_component(_proto_name "${_proto_abs_path}" NAME_WE)
-
-  # set(qst_grpc_cpp_files
-  # ${qst_grpc_cpp_files}
-  # "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.pb.cc"
-  # "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.pb.h"
-  # "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.grpc.pb.cc"
-  # "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.grpc.pb.h")
   set(qst_grpc_cpp_srcs
     ${qst_grpc_cpp_srcs}
     "${CMAKE_CURRENT_SOURCE_DIR}/cpp/${_proto_name}.pb.cc"
