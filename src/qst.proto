@@ -4,9 +4,15 @@ package qst;
 message Input {
   string str = 1;
 }
+message ExecHint {
+  string name = 1;
+  optional string file = 2;
+  optional string url = 3;
+}
 message AppInfo {
   string name = 1;
-  string exec = 2;
+  uint32 flag = 2;//arg with file
+  optional string icon = 3;
 }
 message Empty {
 }
