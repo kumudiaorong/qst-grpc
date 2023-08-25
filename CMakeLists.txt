@@ -14,8 +14,17 @@ set(qst_proto_path "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 file(GLOB_RECURSE qst_proto_files "${qst_proto_path}/*.proto")
 
-find_program(_PROTOBUF_PROTOC protoc)
-find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  set(CMAKE_PREFIX_PATH "C:/Program Files (x86)/grpc/cmake" ${CMAKE_PREFIX_PATH})
+  set(CMAKE_PREFIX_PATH "C:/Program Files (x86)/grpc/lib/cmake" ${CMAKE_PREFIX_PATH})
+  find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin "C:/Program Files (x86)/grpc/bin")
+  find_program(_PROTOBUF_PROTOC protoc "C:/Program Files (x86)/grpc/bin")
+else()
+  find_program(_PROTOBUF_PROTOC protoc)
+  find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin)
+endif()
+
 
 set(qst_grpc_cpp_srcs "")
 set(qst_grpc_cpp_hdrs "")
@@ -63,10 +72,7 @@ target_sources(qst-grpc-cpp
   ${qst_grpc_cpp_hdrs}
 )
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  set(CMAKE_PREFIX_PATH "C:/Program Files (x86)/grpc/cmake" ${CMAKE_PREFIX_PATH})
-  set(CMAKE_PREFIX_PATH "C:/Program Files (x86)/grpc/lib/cmake" ${CMAKE_PREFIX_PATH})
-endif()
+
 
 find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
