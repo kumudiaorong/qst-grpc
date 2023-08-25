@@ -79,6 +79,6 @@ find_package(gRPC CONFIG REQUIRED)
 
 target_link_libraries(qst-grpc-cpp PUBLIC
   gRPC::grpc++_reflection
-  grpc++
+  gRPC::grpc++
   protobuf::libprotobuf
 )
