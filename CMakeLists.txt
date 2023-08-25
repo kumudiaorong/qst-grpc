@@ -6,11 +6,10 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # if(NOT CMAKE_MODULE_PATH)
-#   set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+# set(CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 # else()
-#   list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
+# list(APPEND CMAKE_MODULE_PATH ${CMAKE_SOURCE_DIR}/cmake)
 # endif()
-
 set(qst_proto_path "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 file(GLOB_RECURSE qst_proto_files "${qst_proto_path}/*.proto")
@@ -63,6 +62,11 @@ target_sources(qst-grpc-cpp
   PUBLIC
   ${qst_grpc_cpp_hdrs}
 )
+
+if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  set(CMAKE_PREFIX_PATH "C:/Program Files (x86)/grpc/cmake" ${CMAKE_PREFIX_PATH})
+  set(CMAKE_PREFIX_PATH "C:/Program Files (x86)/grpc/lib/cmake" ${CMAKE_PREFIX_PATH})
+endif()
 
 find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
