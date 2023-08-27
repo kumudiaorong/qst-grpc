@@ -16,7 +16,7 @@ file(GLOB_RECURSE qst_proto_files "${qst_proto_path}/*.proto")
 
 
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  set(CMAKE_PREFIX_PATH "C:/Program Files (x86)/grpc/cmake" ${CMAKE_PREFIX_PATH})
+  set(CMAKE_PREFIX_PATH "C:/tools/release/grpc" ${CMAKE_PREFIX_PATH})
   set(CMAKE_PREFIX_PATH "C:/Program Files (x86)/grpc/lib/cmake" ${CMAKE_PREFIX_PATH})
   find_program(_GRPC_CPP_PLUGIN_EXECUTABLE grpc_cpp_plugin "C:/Program Files (x86)/grpc/bin")
   find_program(_PROTOBUF_PROTOC protoc "C:/Program Files (x86)/grpc/bin")
