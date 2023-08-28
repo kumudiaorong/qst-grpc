@@ -1,5 +1,5 @@
 syntax = "proto3";
-package qst;
+package qst_comm;
 
 message Input {
   string str = 1;
