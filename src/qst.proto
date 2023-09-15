@@ -1,5 +1,5 @@
 syntax = "proto3";
-package qst;
+package qst_comm;
 
 message Input {
   string str = 1;
@@ -14,11 +14,14 @@ message Display {
   uint32 flags = 2;//arg with file
   optional string icon = 3;
 }
+message DisplayList {
+  repeated Display list = 1;
+}
 message Empty {
 }
 service Interact {
   // sample rpc
-  rpc ListApp(Input) returns(stream Display) {}
+  rpc ListApp(Input) returns(DisplayList) {}
   rpc RunApp(ExecHint) returns(Empty) {}
   // //server rpc
   // rpc streamData(StreamRequest) returns (stream StreamResponse){}
