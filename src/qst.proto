@@ -5,7 +5,7 @@ message Input {
   string str = 1;
 }
 message ExecHint {
-  string name = 1;
+  uint32 idx = 1;//use idx avoid string convert
   optional string args = 2;
 }
 message Display {
