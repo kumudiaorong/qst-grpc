@@ -14,9 +14,12 @@ set(qst_proto_path "${CMAKE_CURRENT_SOURCE_DIR}/src")
 
 file(GLOB_RECURSE qst_proto_files "${qst_proto_path}/*.proto")
 
-
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  set(CMAKE_PREFIX_PATH "C:/tools/release/grpc" ${CMAKE_PREFIX_PATH})
+  if(CMAKE_BUILD_TYPE STREQUAL "Release")
+    set(CMAKE_PREFIX_PATH "C:/tools/release/grpc" ${CMAKE_PREFIX_PATH})
+  else()
+    set(CMAKE_PREFIX_PATH "C:/tools/debug/grpc" ${CMAKE_PREFIX_PATH})
+  endif()
 endif()
 
 find_program(_PROTOBUF_PROTOC protoc)
@@ -68,8 +71,6 @@ target_sources(qst-grpc-cpp
   PUBLIC
   ${qst_grpc_cpp_hdrs}
 )
-
-
 
 find_package(Protobuf CONFIG REQUIRED)
 find_package(gRPC CONFIG REQUIRED)
