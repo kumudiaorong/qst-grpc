@@ -11,7 +11,7 @@ message ExecHint {
 message Display {
   string name = 1;
   optional string icon = 2;
-  string argHint = 3;
+  optional string argHint = 3;
 }
 message DisplayList {
   repeated Display list = 1;
