@@ -6,13 +6,15 @@ message Input {
 }
 message ExecHint {
   string name = 1;
-  optional string file = 2;
-  optional string url = 3;
+  optional string args = 2;
 }
 message Display {
   string name = 1;
-  uint32 flags = 2;//arg with file
-  optional string icon = 3;
+  optional string icon = 2;
+  bool hasArgFile = 10;
+  bool hasArgFiles = 11;
+  bool hasArgUrl = 12;
+  bool hasArgUrls = 13;
 }
 message DisplayList {
   repeated Display list = 1;
