@@ -1,0 +1,23 @@
+syntax = "proto3";
+import "defs.proto";
+package daemon;
+option go_package = "qst-back-end/pb/daemon";
+
+message Prompt { string content = 1; }
+message ExtAddrResult {
+  defs.Status status = 1;
+  string addr = 2;
+}
+message ExtInfo {
+  uint32 id = 1;
+  string name = 3;
+  string dir = 4;
+  string exec = 5;
+}
+message Config { map<string, ExtInfo> exts = 1; }
+
+service MainInteract {
+  rpc GetConfig(defs.Empty) returns (Config) {}
+  rpc SetConfig(Config) returns (defs.Empty) {}
+  rpc GetExtPort(Prompt) returns (ExtAddrResult) {}
+}

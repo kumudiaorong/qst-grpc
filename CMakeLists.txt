@@ -56,9 +56,31 @@ add_custom_command(
   DEPENDS ${qst_proto_files}
   VERBATIM
 )
+set(qst_grpc_go_srcs "")
+foreach(_proto_abs_path ${qst_proto_files})
+  get_filename_component(_proto_name "${_proto_abs_path}" NAME_WE)
+  set(qst_grpc_go_srcs
+    ${qst_grpc_go_srcs}
+    "${CMAKE_CURRENT_SOURCE_DIR}/go/${_proto_name}.pb.go"
+    "${CMAKE_CURRENT_SOURCE_DIR}/go/${_proto_name}.grpc.pb.go")
+endforeach()
+
+set(qst_go_out_dir "${CMAKE_CURRENT_SOURCE_DIR}/go")
+
+add_custom_command(
+  OUTPUT ${qst_grpc_go_srcs}
+  COMMAND ${CMAKE_COMMAND} -E make_directory "${qst_go_out_dir}"
+  COMMAND ${_PROTOBUF_PROTOC}
+  ARGS --go_out ${qst_go_out_dir}
+  --go-grpc_out ${qst_go_out_dir}
+  -I ${qst_proto_path}/home/kmdr/pro/qst/qst-front-end/qst-proto/src/daemon.proto /home/kmdr/pro/qst/qst-front-end/qst-proto/src/defs.proto /home/kmdr/pro/qst/qst-front-end/qst-proto/src/ext.proto/home/kmdr/pro/qst/qst-front-end/qst-proto/src/daemon.proto /home/kmdr/pro/qst/qst-front-end/qst-proto/src/defs.proto /home/kmdr/pro/qst/qst-front-end/qst-proto/src/ext.proto
+  ${qst_proto_files}
+  DEPENDS ${qst_proto_files}
+  VERBATIM
+)
 
 add_custom_target(qst-grpc-cpp-gen ALL DEPENDS ${qst_grpc_cpp_srcs} ${qst_grpc_cpp_hdrs})
-
+add_custom_target(qst-grpc-go-gen ALL DEPENDS ${qst_grpc_go_srcs})
 add_library(qst-grpc-cpp STATIC)
 
 set_target_properties(qst-grpc-cpp PROPERTIES

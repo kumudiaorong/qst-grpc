@@ -1,0 +1,33 @@
+syntax = "proto3";
+import "defs.proto";
+package ext;
+option go_package = "qst-ext-appsearcher/pb/ext";
+message Display {
+  uint32 id = 1;
+  string name = 2;
+  optional string hint = 3;
+}
+
+message DisplayList { repeated Display list = 1; }
+
+message Input { string content = 1; }
+message SearchResult {
+  defs.Status status = 1;
+  DisplayList display_list = 2;
+}
+message SubmitHint {
+  uint32 obj_id = 1;
+  optional string hint = 3;
+}
+message SubmitResult { defs.Status status = 1; }
+message FillHint { uint32 obj_id = 1; }
+
+message FillResult {
+  defs.Status status = 1;
+  string content = 2;
+}
+service ExtInteract {
+  rpc Search(Input) returns (SearchResult) {}
+  rpc Submit(SubmitHint) returns (SubmitResult) {}
+  // rpc Fill(FillHint) returns (FillResult) {}
+}
