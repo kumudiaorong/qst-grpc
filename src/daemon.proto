@@ -15,9 +15,13 @@ message ExtInfo {
   string exec = 5;
 }
 message Config { map<string, ExtInfo> exts = 1; }
-
+message SetUpResult {
+  defs.Status status = 1;
+  map<string, string> running = 2;
+}
 service MainInteract {
+  rpc SetUp(defs.Empty) returns (SetUpResult) {}
   rpc GetConfig(defs.Empty) returns (Config) {}
   rpc SetConfig(Config) returns (defs.Empty) {}
-  rpc GetExtPort(Prompt) returns (ExtAddrResult) {}
+  rpc GetExtAddr(Prompt) returns (ExtAddrResult) {}
 }

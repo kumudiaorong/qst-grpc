@@ -1,6 +1,6 @@
 syntax = "proto3";
 package defs;
-option go_package = "qst-ext-appsearcher/pb/defs";
+option go_package = "qst-ext/pb/defs";
 message Empty {}
 enum Status {
   OK = 0;

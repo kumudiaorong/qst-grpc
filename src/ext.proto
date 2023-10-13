@@ -1,7 +1,7 @@
 syntax = "proto3";
 import "defs.proto";
 package ext;
-option go_package = "qst-ext-appsearcher/pb/ext";
+option go_package = "qst-ext/pb/ext";
 message Display {
   uint32 obj_id = 1;
   string name = 2;
