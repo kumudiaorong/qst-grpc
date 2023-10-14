@@ -12,22 +12,27 @@ message DisplayList { repeated Display list = 1; }
 
 message Input { string content = 1; }
 message SearchResult {
-  defs.Status status = 1;
-  DisplayList display_list = 2;
+  message MOk { DisplayList display_list = 2; }
+  oneof mresult {
+    defs.Status status = 1;
+    MOk ok = 2;
+  }
 }
 message SubmitHint {
   uint32 obj_id = 1;
   optional string hint = 3;
 }
-message SubmitResult { defs.Status status = 1; }
 message FillHint { uint32 obj_id = 1; }
 
 message FillResult {
-  defs.Status status = 1;
-  string content = 2;
+  message MOk { DisplayList display_list = 2; }
+  oneof mresult {
+    defs.Status status = 1;
+    MOk ok = 2;
+  }
 }
 service ExtInteract {
   rpc Search(Input) returns (SearchResult) {}
-  rpc Submit(SubmitHint) returns (SubmitResult) {}
+  rpc Submit(SubmitHint) returns (defs.MResult) {}
   // rpc Fill(FillHint) returns (FillResult) {}
 }

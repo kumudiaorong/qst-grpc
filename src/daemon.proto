@@ -5,23 +5,70 @@ option go_package = "qst-back-end/pb/daemon";
 
 message Prompt { string content = 1; }
 message ExtAddrResult {
-  defs.Status status = 1;
-  string addr = 2;
+  message MOk { string addr = 1; }
+  oneof mresult {
+    defs.Status status = 1;
+    MOk ok = 2;
+  }
 }
 message ExtInfo {
-  uint32 id = 1;
+  string prompt = 1;
   string name = 3;
   string dir = 4;
   string exec = 5;
 }
-message Config { map<string, ExtInfo> exts = 1; }
+message ConfigHint {
+  // enum Type {
+  //   CREATE = 0;
+  //   UPDATE = 1;
+  //   DELETE = 2;
+  // }
+  // message ExtInfoForCreate {
+  //   string name = 1;
+  //   string prompt = 2;
+  //   string dir = 3;
+  //   string exec = 4;
+  // }
+  // message Create {
+  //   repeated ExtInfoForCreate exts = 1;
+  // }
+  // message ExtInfoForUpdate {
+  //   uint32 id = 1;
+  //   optional string name = 2;
+  //   optional string dir = 3;
+  //   optional string exec = 4;
+  // }
+  // message Update {
+  //   repeated ExtInfoForUpdate exts = 1;
+  // }
+  // message ExtInfoForDelete {
+  //   uint32 id = 1;
+  // }
+  // message Delete {
+  //   repeated ExtInfoForDelete exts = 1;
+  // }
+  // optional map<string, ExtInfoForCreate> create = 1;
+  // optional map<string, ExtInfoForUpdate> update = 2;
+  // optional map<string, ExtInfoForDelete> delete = 3;
+  map<uint32, ExtInfo> exts = 1;
+}
+message ConfigResult {
+  message MOk { map<uint32, ExtInfo> exts = 2; }
+  oneof mresult {
+    defs.Status status = 1;
+    MOk ok = 2;
+  }
+}
 message SetUpResult {
-  defs.Status status = 1;
-  map<string, string> running = 2;
+  message MOk { map<string, string> running = 1; }
+  oneof mresult {
+    defs.Status status = 1;
+    MOk ok = 2;
+  }
 }
 service MainInteract {
   rpc SetUp(defs.Empty) returns (SetUpResult) {}
-  rpc GetConfig(defs.Empty) returns (Config) {}
-  rpc SetConfig(Config) returns (defs.Empty) {}
+  rpc GetConfig(defs.Empty) returns (ConfigResult) {}
+  rpc SetConfig(ConfigHint) returns (defs.MResult) {}
   rpc GetExtAddr(Prompt) returns (ExtAddrResult) {}
 }
