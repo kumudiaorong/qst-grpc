@@ -2,13 +2,13 @@ syntax = "proto3";
 import "defs.proto";
 package ext;
 option go_package = "qst-ext/pb/ext";
-message Display {
+message DisplayItem {
   uint32 obj_id = 1;
   string name = 2;
   optional string hint = 3;
 }
 
-message DisplayList { repeated Display list = 1; }
+message DisplayList { repeated DisplayItem list = 1; }
 
 message Input { string content = 1; }
 message SearchResult {
