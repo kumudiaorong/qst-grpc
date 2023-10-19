@@ -66,9 +66,17 @@ message SetUpResult {
     MOk ok = 2;
   }
 }
-service MainInteract {
+service Main {
   rpc SetUp(defs.Empty) returns (SetUpResult) {}
   rpc GetConfig(defs.Empty) returns (ConfigResult) {}
   rpc SetConfig(ConfigHint) returns (defs.MResult) {}
   rpc GetExtAddr(Prompt) returns (ExtAddrResult) {}
+}
+
+message ExtAddrHint {
+  uint32 id = 1;
+  string addr = 1;
+}
+service Ext {
+  rpc SetExtAddr(ExtAddrHint) returns (defs.MResult) {}
 }
