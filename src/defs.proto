@@ -5,6 +5,7 @@ message Empty {}
 message Status {
   enum Type {
     UNKNOWN = 0;
+    RETRY = 1;
   }
   Type type = 1;
 }
