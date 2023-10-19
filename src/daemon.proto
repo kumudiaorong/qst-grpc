@@ -75,7 +75,7 @@ service Main {
 
 message ExtAddrHint {
   uint32 id = 1;
-  string addr = 1;
+  string addr = 2;
 }
 service Ext {
   rpc SetExtAddr(ExtAddrHint) returns (defs.MResult) {}
