@@ -50,10 +50,10 @@ message ConfigHint {
   // optional map<string, ExtInfoForCreate> create = 1;
   // optional map<string, ExtInfoForUpdate> update = 2;
   // optional map<string, ExtInfoForDelete> delete = 3;
-  map<uint32, ExtInfo> exts = 1;
+  map<string, ExtInfo> exts = 1;
 }
 message ConfigResult {
-  message MOk { map<uint32, ExtInfo> exts = 2; }
+  message MOk { map<string, ExtInfo> exts = 2; }
   oneof mresult {
     defs.Status status = 1;
     MOk ok = 2;
@@ -74,7 +74,7 @@ service Main {
 }
 
 message ExtAddrHint {
-  uint32 id = 1;
+  string uuid = 1;
   string addr = 2;
 }
 service Ext {
