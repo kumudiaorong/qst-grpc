@@ -4,13 +4,6 @@ package daemon;
 option go_package = "qst-back-end/pb/daemon";
 
 message Prompt { string content = 1; }
-message ExtAddrResult {
-  message MOk { string addr = 1; }
-  oneof mresult {
-    defs.Status status = 1;
-    MOk ok = 2;
-  }
-}
 message ExtInfo {
   string prompt = 1;
   string name = 3;
@@ -52,31 +45,26 @@ message ConfigHint {
   // optional map<string, ExtInfoForDelete> delete = 3;
   map<string, ExtInfo> exts = 1;
 }
-message ConfigResult {
-  message MOk { map<string, ExtInfo> exts = 2; }
-  oneof mresult {
-    defs.Status status = 1;
-    MOk ok = 2;
-  }
-}
-message SetUpResult {
-  message MOk { map<string, string> running = 1; }
-  oneof mresult {
-    defs.Status status = 1;
-    MOk ok = 2;
-  }
-}
-service Main {
-  rpc SetUp(defs.Empty) returns (SetUpResult) {}
-  rpc GetConfig(defs.Empty) returns (ConfigResult) {}
-  rpc SetConfig(ConfigHint) returns (defs.MResult) {}
-  rpc GetExtAddr(Prompt) returns (ExtAddrResult) {}
-}
 
-message ExtAddrHint {
-  string uuid = 1;
+message ExtAddr {
+  string id = 1;
   string addr = 2;
 }
+message Config {
+  map<string, ExtInfo> exts = 1; 
+}
+message Prompt2Addr {
+  map<string, ExtAddr> running = 1; 
+}
+message ExtId {
+  string id = 1;
+}
+service Main {
+  rpc SetUp(defs.Empty) returns (Prompt2Addr) {}
+  rpc GetConfig(defs.Empty) returns (Config) {}
+  rpc SetConfig(Config) returns (defs.Empty) {}
+  rpc GetExtAddr(ExtId) returns (ExtAddr) {}
+}
 service Ext {
-  rpc SetExtAddr(ExtAddrHint) returns (defs.MResult) {}
+  rpc SetExtAddr(ExtAddr) returns (defs.Empty) {}
 }

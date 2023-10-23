@@ -2,17 +2,3 @@ syntax = "proto3";
 package defs;
 option go_package = "qst-ext/pb/defs";
 message Empty {}
-message Status {
-  enum Type {
-    UNKNOWN = 0;
-    RETRY = 1;
-  }
-  Type type = 1;
-}
-message MResult {
-  message MOk {}
-  oneof mresult {
-    Status status = 1;
-    MOk ok = 2;
-  }
-}
