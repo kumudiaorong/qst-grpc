@@ -5,10 +5,11 @@ option go_package = "qst-back-end/pb/daemon";
 
 message Prompt { string content = 1; }
 message ExtInfo {
-  string prompt = 1;
-  string name = 3;
+  string name = 1;
+  string prompt = 2;
   string dir = 4;
   string exec = 5;
+  string addr = 6;
 }
 message ConfigHint {
   // enum Type {
@@ -47,17 +48,20 @@ message ConfigHint {
 }
 
 message ExtAddr {
-  string id = 1;
   string addr = 2;
 }
 message Config {
   map<string, ExtInfo> exts = 1; 
 }
 message Prompt2Addr {
-  map<string, ExtAddr> running = 1; 
+  map<string, ExtAddrWithId> running = 1; 
 }
 message ExtId {
   string id = 1;
+}
+message ExtAddrWithId {
+  string id = 1;
+  string addr = 2;
 }
 service Main {
   rpc SetUp(defs.Empty) returns (Prompt2Addr) {}
@@ -66,5 +70,5 @@ service Main {
   rpc GetExtAddr(ExtId) returns (ExtAddr) {}
 }
 service Ext {
-  rpc SetExtAddr(ExtAddr) returns (defs.Empty) {}
+  rpc SetExtAddr(ExtAddrWithId) returns (defs.Empty) {}
 }
