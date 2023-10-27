@@ -1,5 +1,5 @@
 syntax = "proto3";
-import "defs.proto";
+import "common.proto";
 package extension;
 option go_package = "qst-ext/pb/ext";
 message DisplayItem {
