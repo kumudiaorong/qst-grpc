@@ -64,11 +64,11 @@ message ExtAddrWithId {
   string addr = 2;
 }
 service Main {
-  rpc SetUp(defs.Empty) returns (Prompt2Addr) {}
-  rpc GetConfig(defs.Empty) returns (Config) {}
-  rpc SetConfig(Config) returns (defs.Empty) {}
+  rpc SetUp(common.Empty) returns (Prompt2Addr) {}
+  rpc GetConfig(common.Empty) returns (Config) {}
+  rpc SetConfig(Config) returns (common.Empty) {}
   rpc GetExtAddr(ExtId) returns (ExtAddr) {}
 }
 service Ext {
-  rpc SetExtAddr(ExtAddrWithId) returns (defs.Empty) {}
+  rpc SetExtAddr(ExtAddrWithId) returns (common.Empty) {}
 }
