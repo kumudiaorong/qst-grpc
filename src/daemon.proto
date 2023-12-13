@@ -47,24 +47,16 @@ message ConfigHint {
   map<string, ExtInfo> exts = 1;
 }
 
-message ExtAddr {
-  string addr = 2;
-}
-message Config {
-  map<string, ExtInfo> exts = 1; 
-}
-message Prompt2Addr {
-  map<string, ExtAddrWithId> running = 1; 
-}
-message ExtId {
-  string id = 1;
-}
+message ExtAddr { string addr = 2; }
+message Config { map<string, ExtInfo> exts = 1; }
+message FastConfig { map<string, ExtAddrWithId> exts = 1; }
+message ExtId { string id = 1; }
 message ExtAddrWithId {
   string id = 1;
   string addr = 2;
 }
 service Main {
-  rpc SetUp(common.Empty) returns (Prompt2Addr) {}
+  rpc SetUp(common.Empty) returns (FastConfig) {}
   rpc GetConfig(common.Empty) returns (Config) {}
   rpc SetConfig(Config) returns (common.Empty) {}
   rpc GetExtAddr(ExtId) returns (ExtAddr) {}
