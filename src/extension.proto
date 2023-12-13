@@ -16,9 +16,16 @@ message SubmitHint {
   optional string hint = 3;
 }
 message FillHint { uint32 obj_id = 1; }
-
+message ExtAddrWithId {
+  string id = 1;
+  string addr = 2;
+}
 service Main {
   rpc Search(Input) returns (DisplayList) {}
   rpc Submit(SubmitHint) returns (common.Empty) {}
   // rpc Fill(FillHint) returns (FillResult) {}
+}
+
+service Ext {
+  rpc SetExtAddr(ExtAddrWithId) returns (common.Empty) {}
 }

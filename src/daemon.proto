@@ -3,64 +3,15 @@ import "common.proto";
 package daemon;
 option go_package = "qst-back-end/pb/daemon";
 
-message Prompt { string content = 1; }
-message ExtInfo {
-  string name = 1;
-  string prompt = 2;
-  string dir = 4;
-  string exec = 5;
-  string addr = 6;
-}
-message ConfigHint {
-  // enum Type {
-  //   CREATE = 0;
-  //   UPDATE = 1;
-  //   DELETE = 2;
-  // }
-  // message ExtInfoForCreate {
-  //   string name = 1;
-  //   string prompt = 2;
-  //   string dir = 3;
-  //   string exec = 4;
-  // }
-  // message Create {
-  //   repeated ExtInfoForCreate exts = 1;
-  // }
-  // message ExtInfoForUpdate {
-  //   uint32 id = 1;
-  //   optional string name = 2;
-  //   optional string dir = 3;
-  //   optional string exec = 4;
-  // }
-  // message Update {
-  //   repeated ExtInfoForUpdate exts = 1;
-  // }
-  // message ExtInfoForDelete {
-  //   uint32 id = 1;
-  // }
-  // message Delete {
-  //   repeated ExtInfoForDelete exts = 1;
-  // }
-  // optional map<string, ExtInfoForCreate> create = 1;
-  // optional map<string, ExtInfoForUpdate> update = 2;
-  // optional map<string, ExtInfoForDelete> delete = 3;
-  map<string, ExtInfo> exts = 1;
-}
-
 message ExtAddr { string addr = 2; }
-message Config { map<string, ExtInfo> exts = 1; }
-message FastConfig { map<string, ExtAddrWithId> exts = 1; }
+
+message FastConfig { map<string, FastExtInfo> fexts = 1; }
 message ExtId { string id = 1; }
-message ExtAddrWithId {
-  string id = 1;
-  string addr = 2;
+message FastExtInfo {
+  string prompt = 1;
+  optional string addr = 2;
 }
 service Main {
   rpc SetUp(common.Empty) returns (FastConfig) {}
-  rpc GetConfig(common.Empty) returns (Config) {}
-  rpc SetConfig(Config) returns (common.Empty) {}
   rpc GetExtAddr(ExtId) returns (ExtAddr) {}
-}
-service Ext {
-  rpc SetExtAddr(ExtAddrWithId) returns (common.Empty) {}
 }
