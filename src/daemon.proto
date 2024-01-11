@@ -5,6 +5,13 @@ option go_package = "qst-back-end/pb/daemon";
 
 message ExtAddr { string addr = 2; }
 
+message ExtInfo {
+  string name = 1;
+  string prompt = 2;
+  string dir = 3;
+  string exec = 4;
+  string addr = 5;
+}
 message FastConfig { map<string, FastExtInfo> fexts = 1; }
 message ExtId { string id = 1; }
 message FastExtInfo {
