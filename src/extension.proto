@@ -11,15 +11,28 @@ message DisplayItem {
 message DisplayList { repeated DisplayItem list = 1; }
 
 message Input { string content = 1; }
+
 message SubmitHint {
   uint32 obj_id = 1;
   optional string hint = 3;
 }
+
+message ExpireHint {
+  uint32 obj_id = 1;
+  // expire in seconds
+  // -1 means never expire
+  // 0 means expire immediately
+  // >0 means expire in seconds
+  int32 expire = 2;
+}
+
 message FillHint { uint32 obj_id = 1; }
-message ExtAddrWithId {
+
+message ExtAddrHint {
   string id = 1;
   string addr = 2;
 }
+
 service Main {
   rpc Search(Input) returns (DisplayList) {}
   rpc Submit(SubmitHint) returns (common.Empty) {}
@@ -27,5 +40,6 @@ service Main {
 }
 
 service Ext {
-  rpc SetExtAddr(ExtAddrWithId) returns (common.Empty) {}
+  rpc SetExtAddr(ExtAddrHint) returns (common.Empty) {}
+  rpc SetExpire(ExpireHint) returns (common.Empty) {}
 }

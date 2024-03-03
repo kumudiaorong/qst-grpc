@@ -13,12 +13,12 @@ message ExtInfo {
   string addr = 5;
 }
 message FastConfig { map<string, FastExtInfo> fexts = 1; }
-message ExtId { string id = 1; }
+message ExtHint { string id = 1; }
 message FastExtInfo {
   string prompt = 1;
   optional string addr = 2;
 }
 service Main {
   rpc SetUp(common.Empty) returns (FastConfig) {}
-  rpc GetExtAddr(ExtId) returns (ExtAddr) {}
+  rpc GetExtAddr(ExtHint) returns (ExtAddr) {}
 }
