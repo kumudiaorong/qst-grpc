@@ -17,20 +17,16 @@ message SubmitHint {
   optional string hint = 3;
 }
 
-message ExpireHint {
-  uint32 obj_id = 1;
+message FillHint { uint32 obj_id = 1; }
+
+message ExtConfigHint {
+  string id = 1;
+  string addr = 2;
   // expire in seconds
   // -1 means never expire
   // 0 means expire immediately
   // >0 means expire in seconds
   int32 expire = 2;
-}
-
-message FillHint { uint32 obj_id = 1; }
-
-message ExtAddrHint {
-  string id = 1;
-  string addr = 2;
 }
 
 service Main {
@@ -40,6 +36,5 @@ service Main {
 }
 
 service Ext {
-  rpc SetExtAddr(ExtAddrHint) returns (common.Empty) {}
-  rpc SetExpire(ExpireHint) returns (common.Empty) {}
+  rpc ConfigExt(ExtConfigHint) returns (common.Empty) {}
 }
